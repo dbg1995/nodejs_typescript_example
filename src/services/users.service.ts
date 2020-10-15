@@ -6,6 +6,7 @@ export default class UsersService {
   public async create(data: any): Promise<IUser> {
     const isUniqUserName = await User.count({ username: data.username });
     if (isUniqUserName) {
+      console.log('dsa');
       throw new BadRequestException(UNIQUE_ERROR('username'));
     }
     const user = new User({ ...data });
