@@ -14,6 +14,7 @@ import ErrorMiddleware from 'src/middlewares/error.middleware';
 import ResponseMiddleware from 'src/middlewares/response.middleware';
 import { PORT } from 'src/constants/app.constant';
 import User, { IUser } from 'src/models/user';
+import Event from 'src/models/event';
 
 export async function initServer(): Promise<http.Server> {
   jest.setTimeout(10000);
@@ -63,5 +64,6 @@ export async function getResponse(
 }
 
 const clearDatabase = async () => {
+  await Event.remove({});
   await User.remove({});
 };
