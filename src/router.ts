@@ -1,5 +1,6 @@
-import UserController from './controllers/users.controller';
-import AuthController from './controllers/auths.controller';
+import EventsController from './controllers/events.controller';
+import UsersController from './controllers/users.controller';
+import AuthsController from './controllers/auths.controller';
 
 import AuthMiddleware from './middlewares/auth.middileware';
 import ValidationMiddleware from './middlewares/validation.middleware';
@@ -23,7 +24,11 @@ interface RouterInfo {
 }
 
 export default class Router {
-  private static controllers = [UserController, AuthController];
+  private static controllers = [
+    EventsController,
+    UsersController,
+    AuthsController,
+  ];
 
   public static async init(app: any): Promise<any> {
     for (const controller of this.controllers) {
