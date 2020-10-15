@@ -3,7 +3,9 @@ import { plainToClass } from 'class-transformer';
 
 import EventsService from '../services/events.service';
 import EventDTO from '../dtos/events/event.dto';
+import EventsDTO from '../dtos/events/events.dto';
 import ValidateIdDTO from '../dtos/concerns/validate-id.dto';
+import ReqPagyDTO from '../dtos/concerns/req-pagy.dto';
 import CreateEventDTO from '../dtos/events/create-event.dto';
 import Controller from '../decorators/controller.decorator';
 import Auth from '../decorators/auth.decotator';
@@ -24,6 +26,15 @@ export default class EventsController {
     const event = await this.eventsService.findOne(req.params.id);
 
     return plainToClass(EventDTO, event);
+  }
+
+  @Get()
+  public async index(@DTO(ReqPagyDTO) req: Request): Promise<EventsDTO> {
+    const [events, pagyInfo] = await this.eventsService.findMany(
+      req.query as any,
+    );
+
+    return plainToClass(EventsDTO, { events, pagyInfo });
   }
 
   @Post()
