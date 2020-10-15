@@ -10,7 +10,7 @@ import DTO from '../decorators/dto.decorator';
 import { Post } from '../decorators/request-mapping.decorator';
 
 @Controller('/api/v1/users')
-export default class UserController {
+export default class UsersController {
   private usersService: UsersService;
 
   constructor() {
