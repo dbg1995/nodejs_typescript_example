@@ -6,7 +6,8 @@
     "start:dev": "tsc-watch -p tsconfig.build.json --onSuccess \"node dist/src/main.js\"",
     "start:debug": "tsc-watch -p tsconfig.build.json --onSuccess \"node --inspect dist/main.js\"",
     "start:prod": "node dist/main.js",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\""
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
+    "test:debug": "node --inspect=1234 -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --config jestconfig.json --runInBand --logHeapUsage"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -15,20 +16,29 @@
     "class-validator": "^0.12.2",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "4.x.x",
-    "reflect-metadata": "^0.1.13"
+    "reflect-metadata": "^0.1.13",
+    "supertest": "^5.0.0"
   },
   "devDependencies": {
     "@types/dotenv": "^6.1.1",
     "@types/express": "4.16.1",
+    "@types/faker": "^5.1.2",
+    "@types/jest": "^26.0.14",
+    "@types/jsonwebtoken": "^8.5.0",
     "@types/mongoose": "4.x.x",
     "@types/node": "^11.13.4",
     "@typescript-eslint/eslint-plugin": "^4.4.1",
     "@typescript-eslint/parser": "^4.4.1",
+    "chai": "^4.2.0",
     "eslint": "6.8.0",
     "eslint-config-prettier": "^6.12.0",
     "eslint-plugin-prettier": "^3.1.4",
+    "faker": "^5.1.0",
+    "jest": "^26.5.3",
     "prettier": "^1.19.1",
+    "ts-jest": "^26.4.1",
     "ts-node": "8.1.0",
     "tsc-watch": "2.2.1",
     "tsconfig-paths": "3.8.0",
