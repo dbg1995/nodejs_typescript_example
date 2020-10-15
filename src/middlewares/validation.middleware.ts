@@ -25,6 +25,11 @@ const ValidationMiddleware = (dto: any) => {
 
 function transform(dto, req) {
   switch (req.method.toLowerCase()) {
+    case RequestMethod.GET:
+      if (req.params.id) {
+        return (req.params = plainToClass(dto, req.params));
+      }
+      return (req.query = plainToClass(dto, req.query));
     case RequestMethod.POST:
       return (req.body = plainToClass(dto, req.body));
   }
