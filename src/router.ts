@@ -1,11 +1,14 @@
 import UserController from './controllers/users.controller';
+import AuthController from './controllers/auths.controller';
 
+import AuthMiddleware from './middlewares/auth.middileware';
 import ValidationMiddleware from './middlewares/validation.middleware';
 import { RequestMethod } from './enums/request-method.enum';
 import { getOwnMethods } from './utils/shared.util';
 import {
   PATH_METADATA,
   METHOD_METADATA,
+  AUTH_METADATA,
 } from './constants/controller.constant';
 
 interface RouterInfo {
@@ -20,11 +23,12 @@ interface RouterInfo {
 }
 
 export default class Router {
-  private static controllers = [UserController];
+  private static controllers = [UserController, AuthController];
 
   public static async init(app: any): Promise<any> {
     for (const controller of this.controllers) {
       const prefix: string = Reflect.getMetadata(PATH_METADATA, controller);
+      const auth: boolean = Reflect.getMetadata(AUTH_METADATA, controller);
       const instance = new controller();
 
       const routers = this.getRouters(instance);
@@ -32,6 +36,7 @@ export default class Router {
       for (const router of routers) {
         app[router.method](
           prefix + router.path,
+          AuthMiddleware(auth),
           ValidationMiddleware(router.dto),
           router.handler,
         );
