@@ -39,4 +39,13 @@ export default class EventsService {
 
     return Event.findOne({ _id: id, deletedAt: null });
   }
+
+  public async delete(id: string): Promise<IEvent> {
+    await Event.findOneAndUpdate(
+      { _id: id, deletedAt: null },
+      { deletedAt: new Date() },
+    );
+
+    return Event.findById(id);
+  }
 }

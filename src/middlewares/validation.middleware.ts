@@ -30,6 +30,8 @@ function transform(dto, req) {
         return (req.params = plainToClass(dto, req.params));
       }
       return (req.query = plainToClass(dto, req.query));
+    case RequestMethod.DELETE:
+      return (req.params = plainToClass(dto, req.params));
     case RequestMethod.POST:
       return (req.body = plainToClass(dto, req.body));
     case RequestMethod.PATCH:

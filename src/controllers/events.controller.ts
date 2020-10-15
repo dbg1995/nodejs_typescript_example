@@ -11,7 +11,12 @@ import UpdateEventDTO from '../dtos/events/update-event.dto';
 import Controller from '../decorators/controller.decorator';
 import Auth from '../decorators/auth.decotator';
 import DTO from '../decorators/dto.decorator';
-import { Get, Post, Patch } from '../decorators/request-mapping.decorator';
+import {
+  Get,
+  Post,
+  Delete,
+  Patch,
+} from '../decorators/request-mapping.decorator';
 
 @Controller('/api/v1/events')
 @Auth()
@@ -48,6 +53,13 @@ export default class EventsController {
   @Patch('/:id')
   public async update(@DTO(UpdateEventDTO) req: Request): Promise<EventDTO> {
     const event = await this.eventsService.update(req.params.id, req.body);
+
+    return plainToClass(EventDTO, event);
+  }
+
+  @Delete('/:id')
+  public async destroy(@DTO(ValidateIdDTO) req: Request): Promise<EventDTO> {
+    const event = await this.eventsService.delete(req.params.id);
 
     return plainToClass(EventDTO, event);
   }
