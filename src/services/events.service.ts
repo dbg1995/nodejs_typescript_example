@@ -33,4 +33,10 @@ export default class EventsService {
 
     return event.save();
   }
+
+  public async update(id: string, data: any): Promise<IEvent> {
+    await Event.findOneAndUpdate({ _id: id, deletedAt: null }, data);
+
+    return Event.findOne({ _id: id, deletedAt: null });
+  }
 }
