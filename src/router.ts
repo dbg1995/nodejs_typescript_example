@@ -1,4 +1,4 @@
-import UserController from './controllers/user.controller';
+import UserController from './controllers/users.controller';
 
 import ValidationMiddleware from './middlewares/validation.middleware';
 import { RequestMethod } from './enums/request-method.enum';
