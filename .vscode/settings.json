@@ -1,0 +1,15 @@
+{
+  "eslint.validate": [
+    {
+      "language": "typescript",
+      "autoFix": true,
+    },
+  ],
+  "eslint.autoFixOnSave": true,
+  "eslint.workingDirectories": [
+    {
+      "mode": "auto"
+    }
+  ],
+  "debug.node.autoAttach": "on"
+}
