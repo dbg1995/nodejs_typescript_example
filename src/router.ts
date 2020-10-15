@@ -1,5 +1,6 @@
 import UserController from './controllers/user.controller';
 
+import ValidationMiddleware from './middlewares/validation.middleware';
 import { RequestMethod } from './enums/request-method.enum';
 import { getOwnMethods } from './utils/shared.util';
 import {
@@ -10,6 +11,7 @@ import {
 interface RouterInfo {
   path: string;
   method: RequestMethod;
+  dto: string;
   handler: <TRequest, TResponse>(
     req?: TRequest,
     res?: TResponse,
@@ -28,7 +30,11 @@ export default class Router {
       const routers = this.getRouters(instance);
 
       for (const router of routers) {
-        app[router.method](prefix + router.path, router.handler);
+        app[router.method](
+          prefix + router.path,
+          ValidationMiddleware(router.dto),
+          router.handler,
+        );
       }
     }
   }
@@ -42,6 +48,7 @@ export default class Router {
   private static getRouter(controller: any, action: any): RouterInfo {
     const path = Reflect.getMetadata(PATH_METADATA, action);
     const method: RequestMethod = Reflect.getMetadata(METHOD_METADATA, action);
+    const dto = Reflect.getMetadata('dto', action);
     const handler = async (req, res, next) => {
       try {
         res.data = await action.bind(controller)(req);
@@ -54,6 +61,7 @@ export default class Router {
     return {
       path,
       method,
+      dto,
       handler,
     };
   }

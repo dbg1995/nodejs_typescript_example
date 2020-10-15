@@ -7,6 +7,7 @@ import bodyParser from 'body-parser';
 import Router from './router';
 import Database from './database';
 import ResponseMiddleware from './middlewares/response.middleware';
+import ErrorMiddleware from './middlewares/error.middleware';
 import { PORT } from './constants/app.constant';
 
 async function bootstrap() {
@@ -17,6 +18,7 @@ async function bootstrap() {
   await Router.init(app);
   await Database.init();
 
+  app.use(ErrorMiddleware);
   app.use(ResponseMiddleware);
 
   return app.listen(PORT, () => {
