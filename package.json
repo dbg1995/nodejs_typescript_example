@@ -7,6 +7,7 @@
     "start:debug": "tsc-watch -p tsconfig.build.json --onSuccess \"node --inspect dist/main.js\"",
     "start:prod": "node dist/main.js",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
+    "lint:fix": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test:debug": "node --inspect=1234 -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --config jestconfig.json --runInBand --logHeapUsage"
   },
   "dependencies": {
